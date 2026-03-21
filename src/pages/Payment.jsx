@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {useLocation,useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { API_ROUTES } from '../utils/Apiroutes'
 const Payment = () => {
       
       const { id } =useParams();
@@ -12,7 +13,7 @@ const Payment = () => {
       const navigate = useNavigate()
 
       useEffect(()=>{
-                   axios.get(`http://localhost:8000/product/${id}`)
+                   axios.get(`${API_ROUTES.GET_ALL_PRODUCT}/${id}`)
                    .then((res)=>{
                       console.log(res.data)
                       setPayproduct(res.data.product)
@@ -41,7 +42,7 @@ const Payment = () => {
                 address:address
             }
             try{
-                const res = await axios.post("http://localhost:8000/order",orderData)
+                const res = await axios.post(API_ROUTES.POST_ALL_ORDER,orderData)
                 alert("Order Placed Successfully")
                 navigate(`/Ordersuccess/${payproduct._id}`)
             }catch(err){

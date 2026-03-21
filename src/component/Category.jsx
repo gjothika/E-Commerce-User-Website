@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
+import { API_ROUTES } from '../utils/Apiroutes'
 
 const Category = () => {
       const [category,setCategory]=useState([])
 
       useEffect(()=>{
-        axios.get("http://localhost:8000/Category")
+        axios.get(API_ROUTES.GET_ALL_CATEGORY)
         .then((res)=>{
           console.log(res.data);
           setCategory(res.data)

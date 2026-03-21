@@ -1,6 +1,7 @@
 import React from 'react'
 import carosual1 from "../assets/carosual1.png"
 import carosual2 from "../assets/carosual2.png"
+import { API_ROUTES } from '../utils/Apiroutes'
 const Carousel = () => {
   return (
     <div>
@@ -9,14 +10,11 @@ const Carousel = () => {
     <div className="carousel-item active position-relative">
       <img src={carosual1} className="d-block w-100" alt="..."></img>
       <div className="position-absolute top-50 end-0 carousel-text">
-      <h1 className="me-5 mb-4 text-white"
-      // style={{ transform: "translateY(-50%)" }}
-       >
+      <h1 className="me-5 mb-4 text-white">
         Smart Shopping<br></br>
         Trusted By Millions
       </h1>
       <button className="bg-white w-50 rounded border-0 mb-5 shop-btn"
-      //  style={{ height: "60px", color: "purple",fontSize:"25px",marginTop: "-40px" }}
        >Shop Now</button>
       </div>
     </div>
@@ -40,19 +38,16 @@ const Carousel = () => {
 
     <div className="d-flex justify-content-around text-center">
 
-      
       <div>
         <i className="bi bi-arrow-repeat fs-5 "></i>
         <span className="ms-2">7 Days Easy Return</span>
       </div>
 
-     
       <div>
         <i className="bi bi-cash fs-5 "></i>
         <span className="ms-2">Cash on Delivery</span>
       </div>
 
-      
       <div>
         <i className="bi bi-tag fs-5 "></i>
         <span className="ms-2">Lowest Prices</span>

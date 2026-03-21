@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { API_ROUTES } from '../utils/Apiroutes'
 
 export const addToCartAsync = createAsyncThunk("cart/addToCartAsync",async ({ productId, userId }) => {
-    const res = await axios.post("http://localhost:8000/Cart", { productId, userId });
+    const res = await axios.post(API_ROUTES.POST_ALL_CART, { productId, userId });
     return res.data.cartItem;
   }
 );

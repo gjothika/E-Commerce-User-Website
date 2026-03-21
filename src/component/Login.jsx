@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useDispatch } from "react-redux";
 import { setCartCount } from "../redux/cartSlice";
 import { setWishlistCount, setWishlistItems } from "../redux/wishlistSlice";
+import { API_ROUTES } from '../utils/Apiroutes'
 
 const Login = ({ show, onClose,setUser }) => {
       const [Email,setEmail]=useState("");
@@ -15,7 +16,7 @@ const Login = ({ show, onClose,setUser }) => {
     const handleSubmit = (e) => {
     e.preventDefault(); 
   
-    axios.post("http://localhost:8000/login", {
+    axios.post(API_ROUTES.GET_ALL_LOGIN, {
       Email: Email.trim(),
       Password: Password.trim(),
     })
@@ -26,19 +27,19 @@ const Login = ({ show, onClose,setUser }) => {
       localStorage.setItem("user", JSON.stringify(res.data));
       setUser(res.data);
 
-      axios.get(`http://localhost:8000/cartCount/${res.data._id}`)
+      axios.get(`${API_ROUTES.GET_ALL_CARTCOUNT}/${res.data._id}`)
     .then((response) => {
       dispatch(setCartCount(response.data.count));
     })
     .catch((err) => console.log(err));
 
-    axios.get(`http://localhost:8000/wishlistCount/${res.data._id}`)
+    axios.get(`${API_ROUTES.GET_ALL_WISHLISTCOUNT}/${res.data._id}`)
     .then((response) => {
       dispatch(setWishlistCount(response.data.count));
       })
       .catch((err) => console.log(err));
 
-      axios.get(`http://localhost:8000/wishlist/${res.data._id}`)
+      axios.get(`${API_ROUTES.GET_ALL_WISHLIST}/${res.data._id}`)
   .then((r) => {
     const ids = r.data
       .filter(item => item.productId !== null)
@@ -61,8 +62,6 @@ const Login = ({ show, onClose,setUser }) => {
       <div className="d-flex justify-content-between mb-3"style={{ cursor: "pointer"}}>
         <div><h3>Login</h3></div>
         <div className='icon'
-        // onMouseEnter={(e) => e.target.style.color = "red"}
-        // onMouseLeave={(e) => e.target.style.color = "black"}
         onClick={onClose}>
             <i className="bi bi-x border rounded "></i>
         </div>

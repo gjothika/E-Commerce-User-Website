@@ -3,6 +3,7 @@ import axios from "axios"
 import { useDispatch} from "react-redux";
 import { setWishlistCount } from "../redux/wishlistSlice"
 import { useNavigate } from 'react-router-dom';
+import { API_ROUTES } from '../utils/Apiroutes'
 const Wishlist = () => {
    
    const[wishlistItems,setWishlistItems]=useState([])
@@ -23,13 +24,13 @@ const Wishlist = () => {
         setWishlistItems([])
         return
        } 
-    axios.get(`http://localhost:8000/wishlist/${userId}`)
+    axios.get(`${API_ROUTES.GET_ALL_WISHLIST}/${userId}`)
     .then((res)=>{setWishlistItems(res.data)})
     .catch((err)=>{console.log(err)})
   },[userId])
 
   const handleRemove= async (item)=>{
-          await axios.delete(`http://localhost:8000/Wishlist/${item._id}`)
+          await axios.delete(`${API_ROUTES.DELETE_ALL_WISHLISTS}/${item._id}`)
           setWishlistItems(wishlistItems.filter(i=>i._id !== item._id))
           dispatch(setWishlistCount(wishlistItems.length - 1))
         }

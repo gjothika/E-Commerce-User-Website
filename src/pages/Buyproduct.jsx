@@ -1,11 +1,11 @@
 import React, { useState ,useEffect} from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { API_ROUTES } from '../utils/Apiroutes'
 const Buyproduct = () => {
 
     const { id } =useParams();
     const[buyproduct,setBuyproduct]= useState(null);
-    // const[buyvariant,setBuyVariant]= useState(null);
     const navigate = useNavigate();
     const location = useLocation();
     const{variant,size,quantity}=location.state ||{};
@@ -27,7 +27,7 @@ const Buyproduct = () => {
     const [editid,setEdtitId] = useState(null)
 
      useEffect(()=>{
-             axios.get(`http://localhost:8000/product/${id}`)
+             axios.get(`${API_ROUTES.GET_ALL_PRODUCT}/${id}`)
              .then((res)=>{
                 console.log(res.data)
                 setBuyproduct(res.data.product)
@@ -50,14 +50,14 @@ const Buyproduct = () => {
           const userId = localStorage.getItem("userId")
            try{
             if(editmode){
-              const res = await axios.put(`http://localhost:8000/address/${editid}`,address
+              const res = await axios.put(`${API_ROUTES.PUT_ALL_ADDRESS}/${editid}`,address
               )
               alert("Address Updated")
               setEditMode(false)
               setEdtitId(null)
             
              }else{
-              const res = await axios.post("http://localhost:8000/address",{
+              const res = await axios.post(API_ROUTES.POST_ALL_ADDRESS,{
               userId:userId,
               ...address
             })
@@ -84,7 +84,7 @@ const Buyproduct = () => {
          const fetchAddress = async () =>{
           const userId = localStorage.getItem("userId")
           try{
-            const res = await axios.get(`http://localhost:8000/address/${userId}`)
+            const res = await axios.get(`${API_ROUTES.GET_ALL_ADDRESS}/${userId}`)
             console.log(res.data)
             setAddressList(res.data)
           }catch(err){

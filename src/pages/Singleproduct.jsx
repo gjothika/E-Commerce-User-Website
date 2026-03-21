@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import {addToCart}from "../redux/cartSlice"
 import { useDispatch} from "react-redux";
+import { API_ROUTES } from '../utils/Apiroutes'
 
 const Singleproduct = () => {
 
@@ -14,7 +15,7 @@ const Singleproduct = () => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-         axios.get(`http://localhost:8000/product/${id}`)
+         axios.get(`${API_ROUTES.GET_ALL_PRODUCT}/${id}`)
          .then((res)=>{
             console.log(res.data)
             setSingleproduct(res.data.product)
@@ -50,7 +51,7 @@ const Singleproduct = () => {
         return
       }
       try {
-        const res = await axios.post("http://localhost:8000/cart", {
+        const res = await axios.post(API_ROUTES.POST_ALL_CART, {
           userId: userId,
           productId: item._id,
           variant: {
@@ -134,7 +135,7 @@ const Singleproduct = () => {
                  </div>
               </div>
             </div>
-            <div class="card border-0 rounded ms-5 mt-4 col-12 col-md-6">
+            <div className="card border-0 rounded ms-5 mt-4 col-12 col-md-6">
             <div className='row'>
                 <div className='col-12 col-md-12 mb-3'>
                 <div className="card  border rounded p-3" > 
@@ -165,15 +166,12 @@ const Singleproduct = () => {
                (selectvariant?.size||singleproduct?.size).map((s,i)=>(
                 <button className={`border rounded px-3 py-1 me-4 my-3 ${selectsize===s ? "bg-danger text-white" : "bg-white"}`}
                 onClick={()=>{setSelectSize(s)}}
-                // style={{border:selectsize===s ? "2px solid violet":"1px solid gray"}} 
                 key={i}>{s}</button>))}
                 
                {typeof (selectvariant?.size || singleproduct?.size) && !Array.isArray((selectvariant?.size || singleproduct?.size)) &&
                 Object.entries((selectvariant?.size || singleproduct?.size)).map(([size,price],i)=>(
                 <button key={i} className={`border rounded px-3 py-1 me-2  ${selectsize===size ? "bg-danger text-white" : "bg-white"}`}
-                onClick={()=>{setSelectSize(size)}}
-                // style={{border:selectsize===size ? "2px solid violet":"1px solid gray"}}
-                >
+                onClick={()=>{setSelectSize(size)}}>
                 <div>{size}</div>
                 <div className="small text-muted">₹{price}</div>
                 </button>))}

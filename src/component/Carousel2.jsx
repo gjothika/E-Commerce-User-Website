@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import carosual4 from "../assets/carosual4.png"
+import { API_ROUTES } from '../utils/Apiroutes'
 const Carousel2 = () => {
 
 const [card,setCard]=useState([])
 
 useEffect(()=>{
-    axios.get("http://localhost:8000/Card")
+    axios.get(API_ROUTES.GET_ALL_CARD)
     .then((res)=>{
         setCard(res.data)
     })
@@ -26,7 +27,6 @@ useEffect(()=>{
             <div key={index} className="text-center">
           <img className="product-img" src={item.image} alt="..." />
           <button type="button" className="product-btn bg-white  mt-2 rounded" 
-          // style={{borderColor:"yellow",color:"purple",fontSize:"20px"}}
           >{item.name}</button>
         </div>
          ))}

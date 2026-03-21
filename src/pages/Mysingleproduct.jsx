@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import axios from "axios"
+import { API_ROUTES } from '../utils/Apiroutes'
 
 const Mysingleproduct = () => {
 
@@ -15,7 +16,7 @@ const Mysingleproduct = () => {
 
   useEffect(()=>{
 
-    axios.get(`http://localhost:8000/mysingleproduct/${userId}/${productId}`)
+    axios.get(`${API_ROUTES.GET_ALL_MYSINGLEPRODUCT}/${userId}/${productId}`)
     .then((res)=>{
       setProduct(res.data)
     })

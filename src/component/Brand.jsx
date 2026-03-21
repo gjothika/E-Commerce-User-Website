@@ -1,12 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { API_ROUTES } from '../utils/Apiroutes'
 
 const Brand = () => {
 
     const [brand,setBrand]=useState([])
     
     useEffect(()=>{
-        axios.get("http://localhost:8000/Brand")
+        axios.get(API_ROUTES.GET_ALL_BRAND)
         .then((res)=>{
             setBrand(res.data)
         })

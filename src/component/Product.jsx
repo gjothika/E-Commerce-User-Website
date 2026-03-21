@@ -1,10 +1,10 @@
-
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist, setWishlistItems } from '../redux/wishlistSlice';
 import { toggleWishlist } from "../redux/wishlistSlice";
 import { useNavigate } from 'react-router-dom';
+import { API_ROUTES } from '../utils/Apiroutes'
 
 const Product = () => {
     
@@ -17,7 +17,7 @@ const Product = () => {
     const navigate = useNavigate();
      
     useEffect(()=>{
-        axios.get("http://localhost:8000/Product")
+        axios.get(API_ROUTES.GET_ALL_PRODUCT)
         .then((res)=>{
             setProduct(res.data)
         })
@@ -26,27 +26,6 @@ const Product = () => {
         })
     },[]);
   
-
-  // const handleAddToWishlist = async (productId) => {
-  //   const userId = localStorage.getItem("userId");
-
-  //   if (!userId) {
-  //     alert("Please login first");
-  //     return;
-  //   }
-
-  //   try {
-  //     await axios.post("http://localhost:8000/wishlist", {
-  //       productId,
-  //       userId
-  //     });
-
-  //     dispatch(toggleWishlist(productId));
-
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 const handleAddToWishlist = async (item) => {
 
   const userId = localStorage.getItem("userId");
@@ -59,7 +38,7 @@ const handleAddToWishlist = async (item) => {
 
   try {
      if(isWishlisted){
-    await axios.delete(`http://localhost:8000/wishlist/${item._id}/${userId}`);
+    await axios.delete(`${API_ROUTES.DELETE_ALL_WISHLIST}/${item._id}/${userId}`);
     
    } else{
     const variant =
@@ -67,7 +46,7 @@ const handleAddToWishlist = async (item) => {
         ? item.variants[0]
         : null;
 
-    await axios.post("http://localhost:8000/wishlist", {
+    await axios.post(API_ROUTES.POST_ALL_WISHLIST, {
       productId: item._id,
       userId,
       variant

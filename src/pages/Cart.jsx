@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setCartCount } from "../redux/cartSlice"
 import { addToWishlist, setWishlistCount } from "../redux/wishlistSlice"
 import { useNavigate } from 'react-router-dom'
+import { API_ROUTES } from '../utils/Apiroutes'
 const Cart = () => {
 
  const [cartItems,setCartItems]=useState([])
@@ -20,18 +21,13 @@ useEffect(() => {
     }, 500)
     return () => clearInterval(interval)
 }, [])
-// useEffect(()=>{
-//   const id = localStorage.getItems("userId")
-//   setUserId(id)
-// },[])
 
       useEffect(()=>{                                                             
-        // const userId = localStorage.getItem("userId");
       if(!userId){
         setCartItems([])
         return
        }        
-        axios.get(`http://localhost:8000/Cart/${userId}`)
+        axios.get (`${API_ROUTES.GET_ALL_CART}/${userId}`)
         .then((res)=>{
           console.log(res.data);
           setCartItems(res.data)
@@ -41,23 +37,23 @@ useEffect(() => {
         })
       },[userId]);
 
-      const handleRemove= async (item)=>{
-        await axios.delete(`http://localhost:8000/Cart/${item._id}`)
-        setCartItems(cartItems.filter(i=>i._id !== item._id))
-        dispatch(setCartCount(cartItems.length ))
-        return updated
-      }
+      const handleRemove = async (item) => {
+    await axios.delete(`${API_ROUTES.DELETE_ALL_CARD}/${item._id}`)
+    const updated = cartItems.filter(i => i._id !== item._id)
+    setCartItems(updated)
+    dispatch(setCartCount(updated.length))
+}
 
       const handleMoveToWishlist = async (item)=>{
         const userId = localStorage.getItem("userId");
         try{
-          const res = await axios.post("http://localhost:8000/wishlist",{
+          const res = await axios.post(API_ROUTES.POST_ALL_WISHLIST,{
             userId:userId,
             productId:item.productId._id,
             variant:item.variant
           });
           if(res.data.message==="Already exists"){
-            await axios.delete(`http://localhost:8000/Cart/${item._id}`)
+            await axios.delete(`${API_ROUTES.DELETE_ALL_CARD}/${item._id}`)
             setCartItems(prev=>{
                const updated = prev.filter(i => i._id !== item._id)
                dispatch(setCartCount(updated.length))
@@ -66,14 +62,13 @@ useEffect(() => {
         }else{
      dispatch(setWishlistCount(wishlistCount+1))
    
-    await axios.delete(`http://localhost:8000/Cart/${item._id}`)
+    await axios.delete(`${API_ROUTES.DELETE_ALL_CARD}/${item._id}`)
             setCartItems(prev=>{
                const updated = prev.filter(i => i._id !== item._id)
                dispatch(setCartCount(updated.length))
                return updated
     }) 
         }
-    //  alert("Moved to Wishlist")
         }catch(err){
           console.log(err)
         }

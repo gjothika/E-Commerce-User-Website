@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from "react"
 import {useNavigate, useParams } from 'react-router-dom';
 import axios from "axios"
+import { API_ROUTES } from '../utils/Apiroutes'
 
 const MyOrders = () => {
 
@@ -10,7 +11,7 @@ const MyOrders = () => {
     const navigate = useNavigate()
 
     useEffect(()=>{
-        axios.get(`http://localhost:8000/myorders/${userid}`)
+        axios.get(`${API_ROUTES.GET_ALL_MYORDERS}/${userid}`)
         .then(res=>{
         setOrders(res.data)
         })
