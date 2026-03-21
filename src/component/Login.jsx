@@ -1,43 +1,53 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-const Login = ({ show, onClose }) => {
+import { useDispatch } from "react-redux";
+import { setCartCount } from "../redux/cartSlice";
+import { setWishlistCount, setWishlistItems } from "../redux/wishlistSlice";
+
+const Login = ({ show, onClose,setUser }) => {
       const [Email,setEmail]=useState("");
       const[Password,setPassword]=useState("");
+      const dispatch = useDispatch();
+      
       if (!show) return null;
-
-      // const handleSubmit = async (e) => {
-      //   e.preventDefault();
-      //       try{
-      //           const res=await axios.post("http://localhost8000/Login",{
-      //               Email,
-      //               Password,
-      //           });
-      //           console.log(res.data);
-      //           localStorage.setItem("user", JSON.stringify(res.data));
-      //         setEmail("")
-      //         setPassword("")
-      //         onClose(); 
-      //       } 
-      //    catch(err){
-      //      alert("wrong password")
-      //    }
-      //   }
-
-         const handleSubmit = (e) => {
+      
+        
+    const handleSubmit = (e) => {
     e.preventDefault(); 
   
-    axios.post("http://localhost:8000/Login", {
-      Email: Email,
-      Password: Password,
+    axios.post("http://localhost:8000/login", {
+      Email: Email.trim(),
+      Password: Password.trim(),
     })
     
     .then((res) => {
       console.log(res.data);
+      localStorage.setItem("userId", res.data._id)
       localStorage.setItem("user", JSON.stringify(res.data));
-      //  setUser(res.data);
+      setUser(res.data);
+
+      axios.get(`http://localhost:8000/cartCount/${res.data._id}`)
+    .then((response) => {
+      dispatch(setCartCount(response.data.count));
+    })
+    .catch((err) => console.log(err));
+
+    axios.get(`http://localhost:8000/wishlistCount/${res.data._id}`)
+    .then((response) => {
+      dispatch(setWishlistCount(response.data.count));
+      })
+      .catch((err) => console.log(err));
+
+      axios.get(`http://localhost:8000/wishlist/${res.data._id}`)
+  .then((r) => {
+    const ids = r.data
+      .filter(item => item.productId !== null)
+      .map(item => item.productId._id.toString())
+    dispatch(setWishlistItems(ids))
+  })
        
-       setEmail("")
-    setPassword("")
+      setEmail("")
+      setPassword("")
       onClose(); 
     })
     .catch((err) => {

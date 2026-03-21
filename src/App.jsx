@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import meeshoLogo from "../src/assets/meeshoLogo.svg"
+// import Logo from "../src/assets/Logo.jpg"
 import Carousel from './component/Carousel'
 import Category from './component/Category'
 import Carousel1 from './component/Carousel1'
@@ -7,17 +8,82 @@ import Brand from './component/Brand'
 import Product from './component/Product'
 import Login from './component/Login'
 import Carousel2 from './component/Carousel2'
+import { useSelector } from 'react-redux'
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Wishlist from './pages/Wishlist'
+import Cart from './pages/Cart'
+import Singleproduct from './pages/Singleproduct'
+import Buyproduct from './pages/Buyproduct'
+import Payment from './pages/Payment'
+import Ordersuccess from './pages/Ordersuccess'
+import Myorder from './pages/Myorder'
+import Mysingleproduct from './pages/Mysingleproduct'
+import Adminorder from './admin/Adminorder'
+import Adminsingleorder from './admin/Adminsingleorder'
+import Address from './pages/Address'
+import axios from "axios"
+import { useDispatch } from "react-redux"
+import { setCartCount } from "./redux/cartSlice"
+import { setWishlistCount } from './redux/wishlistSlice'
+import { setWishlistItems } from './redux/wishlistSlice'
+
+
 const App = () => {
-
-
-  const [user, setUser] = useState(() => {
-  const savedUser = localStorage.getItem("user");
-  return savedUser ? JSON.parse(savedUser) : null;
-});
 
   const [showlogin,setShowLogin]=useState(false)
 
+  const [user, setUser] = useState(null);
+
+  const dispatch = useDispatch()
+  const userId = localStorage.getItem("userId")
+  
+
+  useEffect(() => {
+  const savedUser = localStorage.getItem("user");
+  if (savedUser) {
+    const UserData = JSON.parse(savedUser);
+    setUser(UserData);
+
+    axios.get(`http://localhost:8000/cartCount/${UserData._id}`)
+      .then((res) => {
+        dispatch(setCartCount(res.data.count));
+      })
+      .catch(err => console.log(err));
+
+
+    axios.get(`http://localhost:8000/wishlistCount/${UserData._id}`)
+    .then((res)=>{
+      dispatch(setWishlistCount(res.data.count));
+    })  
+    .catch(err => console.log(err));
+    
+
+    axios.get(`http://localhost:8000/wishlist/${UserData._id}`)
+  .then((res) => {
+    const ids = res.data.map(item => item.productId._id)
+    dispatch(setWishlistItems(ids))
+  })
+    
+  }
+}, []);
+  
+
+  const cartCount= useSelector(state =>state.cart.count)
+  const wishlistCount= useSelector(state =>state.wishlist.count)
+ 
+  const handleLogout = () => {
+  localStorage.removeItem("userId")
+  localStorage.removeItem("user")
+  setUser(null)
+  dispatch(setCartCount(0));
+  dispatch(setWishlistCount(0));  
+  dispatch(setWishlistItems([])) //logout heart color remove       
+  alert("Logged out successfully")
+}
+
   return (
+    <BrowserRouter>
+
     <div>
       <nav className="navbar navbar-light bg-white sticky-top">
         <div className="container">
@@ -25,49 +91,75 @@ const App = () => {
             <img src={meeshoLogo} alt="" style={{width:200}}></img>
           </a>
           <form className="d-flex w-50">
-            {/* <span className="input-group-text">
-                  <i className="bi bi-search"></i>
-                </span> */}
             <div className="position-relative w-100">
               <i className="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-            <input className="form-control me-2" type="search" placeholder="        Try Saree,kurti or Search by Product Code" aria-label="Search"></input>
+            <input className="form-control me-2 px-5" type="search" placeholder="Try Saree,kurti or Search by Product Code" aria-label="Search"></input>
             </div>
           </form>
-          <div>
-            <i className="bi bi-cart3" style={{cursor:"pointer"}}></i> Add to Cart
+          <div className="position-relative">
+            <Link to="/wishlist" style={{textDecoration:"none", color:"black"}}>
+               <i className="bi bi-heart" style={{cursor:"pointer", fontSize:"20px"}}></i>
+               {wishlistCount > 0 && (
+      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger "style={{backgroundColor:"red"}}>
+        {wishlistCount}
+      </span>
+    )}
+           </Link>
           </div>
-          <div>
-            <i className=""></i> Wish List
-          </div>
+          <div className="position-relative">
+            <Link to="/Cart" style={{textDecoration:"none", color:"black"}}>
+            <i className="bi bi-cart3" style={{cursor:"pointer", fontSize:"20px"}}></i>
+               {cartCount > 0 && (
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill  bg-danger">{cartCount}</span>
+              )}</Link>
+              </div>
           <div>
            {user ? (
-            <span>{user.FirstName} {user.LastName} <i class="bi bi-box-arrow-right px-2" style={{cursor:"pointer"}} 
-            onClick={() => {localStorage.removeItem("user"); 
-                           setUser(null);                   
-              }}></i></span>
+            <span>{user.FirstName} {user.LastName} <i className="bi bi-box-arrow-right px-2" style={{cursor:"pointer"}} 
+            onClick={handleLogout}></i>
+            <i className="bi bi-bag px-2" style={{cursor:"pointer"}}><Link
+             to={`/Myorder/${userId}`}
+      style={{ textDecoration: "none", color: "black" }}
+      className="px-2"
+             >My Order</Link></i>
+            </span>
              ) : (
-             <a onClick={() => setShowLogin(true)} className="nav-link active " aria-current="page" href="#">Login</a>
+             <a onClick={() => setShowLogin(true)} className="nav-link active " aria-current="page" href="#"><i className="bi bi-person px-1"style={{cursor:"pointer", fontSize:"20px"}}></i>Login</a>
              )}
-            {/* <a onClick={() => setShowLogin(true)} className="nav-link active " aria-current="page" href="#">Login</a> */}
           </div>
         </div>      
       
-        <Login show={showlogin} onClose={() => setShowLogin(false)}setUser={setUser} />
+        <Login show={showlogin} onClose={() => setShowLogin(false)} setUser={setUser} />
 
       </nav>
+       
+ <Routes>
 
-    
+<Route path="/" element={
+  <>
     <Carousel />
     <Category />
     <Carousel1 />
     <Brand />
     <Carousel2 />
     <Product />
-    
-
-
-
-    </div>
+    </>
+}/>
+      <Route path="/Wishlist"element={<Wishlist />}/>
+      <Route path="/Cart" element={<Cart />}/>
+      <Route path="/product/:id" element={<Singleproduct />} />
+      <Route path="/Buyproduct/:id" element={<Buyproduct />}/>
+      <Route path="/Payment/:id" element={<Payment />}/>
+      <Route path="/Ordersuccess/:id" element={<Ordersuccess />}/>
+      <Route path="/Myorder/:userId" element={<Myorder />}/>
+      <Route path="/Mysingleproduct/:userId/:productId" element={<Mysingleproduct />} />
+      <Route path="/Admin"element={<Adminorder />}/>
+      <Route path="/Admin/:orderId"element={<Adminsingleorder />}/>
+      <Route path="/Address"element={<Address />}/>
+</Routes>
+     </div>
+    </BrowserRouter>
+   
   )
 }
 

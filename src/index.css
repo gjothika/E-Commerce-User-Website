@@ -6,6 +6,7 @@
 body{
   overflow-x: hidden;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -30,4 +31,56 @@ body{
 .icon:hover {
   color: red;        
   border-color: red;   
+}
+.product-page .container{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+ .product-img{
+    width:150px;
+  }
+@media (max-width:768px){
+  .product-img{
+    width:50px;
+  }
+}
+.product-btn{
+  font-size:20px;
+  border-color:yellow;
+  color:purple;
+  padding:3px 5px;
+}
+
+@media (max-width:768px){
+  .product-btn{
+    font-size:5px;
+    border-color:yellow;
+    color:purple;
+    padding:2px 6px;
+  }
+}
+.carousel-text h1{
+  font-size:50px;
+}
+
+.shop-btn{
+  height:60px;
+  color:purple;
+  font-size:25px;
+  margin-top:-40px;
+}
+
+@media (max-width:768px){
+
+  .carousel-text h1{
+    font-size:11px;
+    margin-right:10px;
+  }
+
+  .shop-btn{
+    height:15px;
+    font-size:10px;
+  }
+
 }

@@ -22,7 +22,7 @@ const Brand = () => {
        {brand.length > 0 ? (
         brand.map((item,index)=>(
             <div className="col mx-3 my-4">
-            <div classNmae="card" style={{width: "200px"}}>
+            <div className="card border-0" style={{width: "200px"}}>
                  <img src={item.image} class="card-img-top" alt="..."></img>
             </div>
             </div>
@@ -33,12 +33,6 @@ const Brand = () => {
         }
         </div>
     </div>
-
-
-
-
-
-
 )}
 
 export default Brand
