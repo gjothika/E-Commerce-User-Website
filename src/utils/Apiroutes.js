@@ -1,4 +1,4 @@
-const BASE_URL="http://localhost:8000"
+const BASE_URL="https://e-commerce-website-user-backend.onrender.com"
 
 export const API_ROUTES={
     GET_ALL_BRAND:`${BASE_URL}/Brand`,
