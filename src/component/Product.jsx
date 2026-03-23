@@ -64,14 +64,14 @@ const handleAddToWishlist = async (item) => {
             <h2 className="my-4">Products For You</h2>
        {product.length > 0 ?(
         product.map((item,index)=>(
-            <div key={item._id} className="col-6 col-md-3 d-flex mb-5 "> 
-       <div className="card h-100" style={{width:"275px",cursor:"pointer"}} 
+            <div key={item._id} className="col-12 col-md-3 d-flex mb-5 "> 
+       <div className="card h-100" style={{width:"280px",cursor:"pointer"}} 
        onClick={() => navigate(`/product/${item._id}`)}>
         <div className="position-relative">
           <img src={
             item.variants && item.variants.length>0 ?
             item.variants[0].image:item.image
-          } className="card-img-top" alt="..."  style={{ height: "245px" }}></img>
+          } className="card-img-top" alt="..."  style={{ height: "250px" }}></img>
           <button type='button' onClick={(e) => {
             e.stopPropagation();
             handleAddToWishlist(item)}}>
@@ -91,10 +91,10 @@ const handleAddToWishlist = async (item) => {
     </div>
     <p className="text-muted ">Free Delivery</p>
     <div className="d-flex align-items-center gap-1 ">
-    <button className="btn btn-primary bg-success text-white fw-bold border-0 rounded-pill px-3 mx-1 my-2">{item.ratings}
+    <button className="btn btn-primary bg-success text-white fw-bold border-0 rounded-pill px-3 mx-1 my-3">{item.ratings}
         <i className="bi bi-star ms-2 "></i>
     </button>
-    <p className="text-muted pt-2">{item.reviews} Reviews</p>
+    <p className="text-muted pt-3 ">{item.reviews} Reviews</p>
     </div>
   </div>
 </div>
