@@ -34,7 +34,7 @@ const Mysingleproduct = () => {
     <div>
         <div className="container">
         <div className="card p-2 my-4" 
-        onClick={() => navigate(`/Product/${item.productId._id}`)}style={{cursor:"pointer",maxWidth:"600px"}}>
+        onClick={() => navigate(`/Product/${product.productId}`)}style={{cursor:"pointer",maxWidth:"600px"}}>
             <div className="d-flex">
                 <img src={selectedImage || product.image} width="170" className="rounded"></img>
                 <div className="ms-3">
