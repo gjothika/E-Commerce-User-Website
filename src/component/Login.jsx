@@ -8,6 +8,9 @@ import { API_ROUTES } from '../utils/Apiroutes'
 const Login = ({ show, onClose,setUser }) => {
       const [Email,setEmail]=useState("");
       const[Password,setPassword]=useState("");
+      const [isSignup, setIsSignup] = useState(false);
+      const [FirstName, setFirstName] = useState("");
+      const [LastName, setLastName] = useState("");
       const dispatch = useDispatch();
       
       if (!show) return null;
@@ -16,7 +19,7 @@ const Login = ({ show, onClose,setUser }) => {
     const handleSubmit = (e) => {
     e.preventDefault(); 
   
-    axios.post(API_ROUTES.GET_ALL_LOGIN, {
+    axios.post(API_ROUTES.POST_ALL_LOGIN, {
       Email: Email.trim(),
       Password: Password.trim(),
     })
@@ -55,28 +58,77 @@ const Login = ({ show, onClose,setUser }) => {
       alert("Invalid Login");
     });
     }
+
+    const handleSignup = (e) => {
+  e.preventDefault();
+
+  axios.post(API_ROUTES.POST_ALL_REGISTER, {
+    FirstName,
+    LastName,
+    Email,
+    Password,
+  })
+  .then((res) => {
+    alert("Registered Successfully");
+
+    setIsSignup(false);
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+  })
+  .catch(() => {
+    alert("Signup Failed");
+  });
+};
   return (
     <div>
         <div className="modal-overlay">
       <div className="modal-box">
       <div className="d-flex justify-content-between mb-3"style={{ cursor: "pointer"}}>
-        <div><h3>Login</h3></div>
+        <div><h3>{isSignup ? "Signup" : "Login"}</h3></div>
         <div className='icon'
         onClick={onClose}>
             <i className="bi bi-x border rounded "></i>
         </div>
       </div>  
-        <form onSubmit={handleSubmit}>
-  <div className="mb-3 ">
-    <label for="exampleInputEmail1" className="form-label">Email address</label>
-    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value={Email} onChange={(e)=>setEmail (e.target.value)}></input>
+      <form onSubmit={isSignup ? handleSignup : handleSubmit}>
+
+  {isSignup && (
+    <div>
+      <div className="mb-3">
+        <label className="form-label">First Name</label>
+        <input type="text" className="form-control" value={FirstName} onChange={(e) => setFirstName(e.target.value)}/>
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Last Name</label>
+        <input type="text"className="form-control"value={LastName}onChange={(e) => setLastName(e.target.value)}/>
+      </div>
+    </div>
+  )}
+
+  <div className="mb-3">
+    <label className="form-label">Email</label>
+    <input type="email" className="form-control"value={Email} onChange={(e) => setEmail(e.target.value)}/>
   </div>
   <div className="mb-3">
-    <label for="exampleInputPassword1" className="form-label">Password</label>
-    <input type="password" className="form-control" id="exampleInputPassword1" value={Password} onChange={(e)=>setPassword (e.target.value)}></input>
+    <label className="form-label">Password</label>
+    <input type="password" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)}/>
   </div>
-  <button type="submit" className="btn btn-primary">Submit</button>
+
+  <button type="submit" className="btn btn-primary w-100">
+    {isSignup ? "Signup" : "Login"}
+  </button>
+
 </form>
+<p className="text-center mt-3">
+  {isSignup ? "Already have an account?" : "Don't have an account?"}
+  <span
+    style={{ color: "blue", cursor: "pointer" }}
+    onClick={() => setIsSignup(!isSignup)}>
+    {isSignup ? " Login" : " Signup"}
+  </span>
+</p>
 </div>
 </div>
     </div>
