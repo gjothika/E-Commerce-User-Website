@@ -38,37 +38,37 @@ const Wishlist = () => {
 
   return (
     <div>
-            <div className='row'>
+            <div className='row g-0 g-md-5'>
                 <h2 className="mb-3">My WishList</h2>
                   {wishlistItems.length > 0 ?(
                   wishlistItems.map((item)=>(
-                      <div className="col-12 col-md-3 d-flex mb-5"> 
-                 <div className="card h-100"key={item._id} style={{width:"280px",cursor: "pointer"}} 
+                      <div className="col-6 col-md-3 d-flex mb-md-5"> 
+                 <div className="card h-100 w-100 border rounded-0 rounded-md"key={item._id} style={{width:"280px",cursor: "pointer"}} 
                   onClick={()=>navigate(`/Product/${item.productId._id}`)}>
                   <div className="position-relative">
-                    <img src={item.variant?.image || item.productId?.image} className="card-img-top" alt="..."  style={{ height: "250px" }}></img>
+                    <img src={item.variant?.image || item.productId?.image} className="card-img-top rounded-0" alt="..."  style={{ height: "250px" }}></img>
                        <button>
                       <i onClick={(e)=>{e.stopPropagation();
                         handleRemove(item)}} className="bi bi-heart-fill position-absolute top-0 end-0 m-2"style={{fontSize:"20px",cursor:"pointer",color:"red"}}></i>
                          </button>
                   </div>          
             <div className="card-body">
-              <h5 className="card-title">{item.productId.name}</h5>
-              <div className="d-flex gap-3">
-                  <h2 className="card-text fw-bold ">₹
+              <h5 className="card-title mb-3" style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>{item.productId.name}</h5>
+              <div className="d-flex gap-1">
+                  <h3 className="card-text fw-bold ">₹
                     {item.variant?.selling_price || item.productId?.selling_price}
-                    </h2>
-                  <h5 className="card-text text-muted text-decoration-line-through">₹{
-                  item.variant?.actual_price || item.productId?.actual_price}</h5>
-                  <h5 className="card-text text-success">{
-                  item.variant?.discount || item.productId?.discount}% off</h5>
+                    </h3>
+                  <h6 className="card-text text-muted text-decoration-line-through">₹{
+                  item.variant?.actual_price || item.productId?.actual_price}</h6>
+                  <h6 className="card-text text-success">{
+                  item.variant?.discount || item.productId?.discount}% off</h6>
               </div>
-              <p className="text-muted ">Free Delivery</p>
+              <span className="text-muted bg-light rounded px-2 my-2">Free Delivery</span>
               <div className="d-flex align-items-center gap-1 ">
-              <button className="btn btn-primary bg-success text-white fw-bold border-0 rounded-pill px-3 mx-1 my-3">{item.productId.ratings}
+              <span className="bg-success text-white fw-bold rounded-pill px-1 py-1 my-3">{item.productId.ratings}
                   <i className="bi bi-star ms-2 "></i>
-              </button>
-              <p className="text-muted pt-3 ">{item.productId.reviews} Reviews</p>
+              </span>
+              <small className="text-muted pt-3 ">{item.productId.reviews} Reviews</small>
               </div>
             </div>
           </div>

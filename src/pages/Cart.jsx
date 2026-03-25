@@ -142,7 +142,7 @@ const discount = totalActual - totalPrice
    </div> 
    </div>
    <div className="col-12 col-md-6 ">
-    <div className="card p-4 border-0 position-sticky" style={{top:"100px",width:"500px"}}>
+    <div className="card p-4 border-0 position-sticky" style={{top:"100px",maxWidth:"500px"}}>
       <h5>Price Details ({cartItems.length} items)</h5>
       <div className="d-flex justify-content-between pt-2 pe-5">
         <p className="text-muted fw-bold">Product Price</p>
@@ -157,7 +157,7 @@ const discount = totalActual - totalPrice
         <p>₹{totalPrice}</p>
       </div>
       <button className="border-0 rounded p-2 mx-4 my-4"style={{backgroundColor:"lightgreen",color:"green"}}>% Yay! Your total discount is ₹{discount}</button>
-        <p className="px-5">Clicking on 'Continue' will not deduct any money</p>
+        <p className="px-5"style={{fontSize:"15px"}}>Clicking on 'Continue' will not deduct any money</p>
         <button className="border-0 rounded p-2 fw-bold mx-4 "style={{backgroundColor:"purple",color:"white"}}
         onClick={()=>navigate("/Address")}
         >Continue</button>
