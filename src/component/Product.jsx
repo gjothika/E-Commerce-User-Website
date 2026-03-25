@@ -61,7 +61,7 @@ const handleAddToWishlist = async (item) => {
   return (
     <div>
         <div className='row g-0 g-md-5'>
-            <h2>Products For You</h2>
+            <h2 className="pt-4">Products For You</h2>
        {product.length > 0 ?(
         product.map((item,index)=>(
             <div key={item._id} className="col-6 col-md-3 d-flex mb-md-5"> 
@@ -92,7 +92,7 @@ const handleAddToWishlist = async (item) => {
     </div>
     <span className="text-muted bg-light rounded px-2 my-2">Free Delivery</span>
     <div className="d-flex align-items-center gap-1 ">
-    <span className="bg-success text-white fw-bold rounded-pill px-2 py-1 my-3">{item.ratings}
+    <span className="bg-success text-white fw-bold rounded-pill px-1 py-1 my-3">{item.ratings}
         <i className="bi bi-star ms-2 "></i>
     </span>
     <small className="text-muted pt-3 ">{item.reviews} Reviews</small>

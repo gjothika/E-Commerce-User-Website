@@ -24,7 +24,9 @@ const Category = () => {
      <div className="card border-0 h-100" style={{ maxWidth: "150px" }}>
   <img src={item.image} className="card-img-top img-fluid" alt=""style={{ objectFit: "cover"}}></img>
   <div className="card-body">
-    <h6 className="card-title text-center">{item.name}</h6>
+    <p className="text-center" style={{fontSize: "15px",whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
+  {item.name}
+</p>
   </div>
     </div>
      </div>
