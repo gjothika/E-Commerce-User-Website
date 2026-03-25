@@ -29,6 +29,7 @@ const Wishlist = () => {
     .catch((err)=>{console.log(err)})
   },[userId])
 
+
   const handleRemove= async (item)=>{
           await axios.delete(`${API_ROUTES.DELETE_ALL_WISHLISTS}/${item._id}`)
           setWishlistItems(wishlistItems.filter(i=>i._id !== item._id))

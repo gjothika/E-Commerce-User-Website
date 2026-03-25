@@ -1,6 +1,5 @@
 import React, { useState ,useEffect} from 'react'
-import meeshoLogo from "../src/assets/meeshoLogo.svg"
-// import Logo from "../src/assets/Logo.jpg"
+import meeshoLogo from "../src/assets/buynest.png"
 import Carousel from './component/Carousel'
 import Category from './component/Category'
 import Carousel1 from './component/Carousel1'
@@ -18,14 +17,13 @@ import Payment from './pages/Payment'
 import Ordersuccess from './pages/Ordersuccess'
 import Myorder from './pages/Myorder'
 import Mysingleproduct from './pages/Mysingleproduct'
-import Adminorder from './admin/Adminorder'
-import Adminsingleorder from './admin/Adminsingleorder'
 import Address from './pages/Address'
 import axios from "axios"
 import { useDispatch } from "react-redux"
 import { setCartCount } from "./redux/cartSlice"
 import { setWishlistCount } from './redux/wishlistSlice'
 import { setWishlistItems } from './redux/wishlistSlice'
+import { API_ROUTES } from './utils/Apiroutes'
 
 
 const App = () => {
@@ -44,21 +42,19 @@ const App = () => {
     const UserData = JSON.parse(savedUser);
     setUser(UserData);
 
-    axios.get(`http://localhost:8000/cartCount/${UserData._id}`)
+    axios.get(`${API_ROUTES.GET_ALL_CARTCOUNT}/${UserData._id}`)
       .then((res) => {
         dispatch(setCartCount(res.data.count));
       })
       .catch(err => console.log(err));
 
-
-    axios.get(`http://localhost:8000/wishlistCount/${UserData._id}`)
+    axios.get(`${API_ROUTES.GET_ALL_WISHLISTCOUNT}/${UserData._id}`)
     .then((res)=>{
       dispatch(setWishlistCount(res.data.count));
     })  
     .catch(err => console.log(err));
     
-
-    axios.get(`http://localhost:8000/wishlist/${UserData._id}`)
+    axios.get(`${API_ROUTES.GET_ALL_WISHLIST}/${UserData._id}`)
   .then((res) => {
     const ids = res.data.map(item => item.productId._id)
     dispatch(setWishlistItems(ids))
@@ -153,8 +149,6 @@ const App = () => {
       <Route path="/Ordersuccess/:id" element={<Ordersuccess />}/>
       <Route path="/Myorder/:userId" element={<Myorder />}/>
       <Route path="/Mysingleproduct/:userId/:productId" element={<Mysingleproduct />} />
-      <Route path="/Admin"element={<Adminorder />}/>
-      <Route path="/Admin/:orderId"element={<Adminsingleorder />}/>
       <Route path="/Address"element={<Address />}/>
 </Routes>
      </div>
