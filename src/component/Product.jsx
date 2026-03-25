@@ -60,18 +60,18 @@ const handleAddToWishlist = async (item) => {
 };
   return (
     <div>
-        <div className='row'>
-            <h2 className="my-4">Products For You</h2>
+        <div className='row g-0 g-md-5'>
+            <h2>Products For You</h2>
        {product.length > 0 ?(
         product.map((item,index)=>(
-            <div key={item._id} className="col-12 col-md-3 d-flex mb-5 "> 
-       <div className="card h-100" style={{width:"280px",cursor:"pointer"}} 
+            <div key={item._id} className="col-6 col-md-3 d-flex mb-md-5"> 
+       <div className="card h-100 w-100 border rounded-0 rounded-md" style={{maxwidth:"280px",cursor:"pointer"}} 
        onClick={() => navigate(`/product/${item._id}`)}>
         <div className="position-relative">
           <img src={
             item.variants && item.variants.length>0 ?
             item.variants[0].image:item.image
-          } className="card-img-top" alt="..."  style={{ height: "250px" }}></img>
+          } className="card-img-top rounded-0" alt="..."  style={{ height: "250px" }}></img>
           <button type='button' onClick={(e) => {
             e.stopPropagation();
             handleAddToWishlist(item)}}>
@@ -80,21 +80,22 @@ const handleAddToWishlist = async (item) => {
          </button>
         </div>  
   <div className="card-body">
-    <h5 className="card-title">{item.name}</h5>
-    <div className="d-flex gap-3">
-        <h2 className="card-text fw-bold">₹
-           {item.selling_price||item.variants[0].selling_price}</h2>
-          <h5 className="card-text text-muted text-decoration-line-through">₹
-            {item.actual_price ||item.variants[0].actual_price}</h5>
-        <h5 className="card-text text-success">
-          {item.discount||item.variants[0].discount}% off</h5>
+    <h5 className="card-title mb-3" style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
+      {item.name}</h5>
+    <div className="d-flex gap-1">
+        <h3 className="card-text fw-bold">₹
+           {item.selling_price||item.variants[0].selling_price}</h3>
+          <h6 className="card-text text-muted text-decoration-line-through">₹
+            {item.actual_price ||item.variants[0].actual_price}</h6>
+        <h6 className="card-text text-success">
+          {item.discount||item.variants[0].discount}% off</h6>
     </div>
-    <p className="text-muted ">Free Delivery</p>
+    <span className="text-muted bg-light rounded px-2 my-2">Free Delivery</span>
     <div className="d-flex align-items-center gap-1 ">
-    <button className="btn btn-primary bg-success text-white fw-bold border-0 rounded-pill px-3 mx-1 my-3">{item.ratings}
+    <span className="bg-success text-white fw-bold rounded-pill px-2 py-1 my-3">{item.ratings}
         <i className="bi bi-star ms-2 "></i>
-    </button>
-    <p className="text-muted pt-3 ">{item.reviews} Reviews</p>
+    </span>
+    <small className="text-muted pt-3 ">{item.reviews} Reviews</small>
     </div>
   </div>
 </div>

@@ -19,12 +19,12 @@ const Brand = () => {
   return (
     <div>
         <div className="row my-5 mx-4 ">
-            <h1>Original Brands</h1>
+            <h1 className="pb-3">Original Brands</h1>
        {brand.length > 0 ? (
         brand.map((item,index)=>(
-            <div className="col mx-3 my-4">
-            <div className="card border-0" style={{width: "210px"}}>
-                 <img src={item.image} class="card-img-top" alt="..."></img>
+            <div className="col-6 col-md-3 mb-4" key={index}>
+            <div className="card border-0 h-100" style={{maxWidth:"220px"}}>
+                 <img src={item.image} className="card-img-top img-fluid" alt="brand"style={{ objectFit: "cover" }}></img>
             </div>
             </div>
         ))   

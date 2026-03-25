@@ -21,10 +21,10 @@ const Category = () => {
         {category.length > 0 ? (
           category.map((item,index)=>(
              <div className="col-6 col-md-2 mb-3" key={index}>
-     <div className="card border-0 " style={{ width: "150px" }}>
-  <img src={item.image} className="card-img-top" alt="..." style={{height:"150px"}}></img>
+     <div className="card border-0 h-100" style={{ maxWidth: "150px" }}>
+  <img src={item.image} className="card-img-top img-fluid" alt=""style={{ objectFit: "cover"}}></img>
   <div className="card-body">
-    <h5 className="card-title text-center">{item.name}</h5>
+    <h6 className="card-title text-center">{item.name}</h6>
   </div>
     </div>
      </div>
