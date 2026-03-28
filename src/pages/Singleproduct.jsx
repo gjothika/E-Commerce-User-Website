@@ -161,16 +161,16 @@ const Singleproduct = () => {
             <div className='col-12 col-md-12 mb-3'>
                 <div className="card  border rounded p-3"> 
                  <h4 className="card-text ">Select Size</h4>
-                <div className="">
+                <div className="d-flex flex-wrap gap-2">
               {Array.isArray(selectvariant?.size || singleproduct?.size) &&
                (selectvariant?.size||singleproduct?.size).map((s,i)=>(
-                <button className={`border rounded px-3 py-1 me-4 my-3 ${selectsize===s ? "bg-danger text-white" : "bg-white"}`}
+                <button className={`border rounded px-3 py-1 ${selectsize===s ? "bg-danger text-white" : "bg-white"}`}
                 onClick={()=>{setSelectSize(s)}}
                 key={i}>{s}</button>))}
                 
                {typeof (selectvariant?.size || singleproduct?.size) && !Array.isArray((selectvariant?.size || singleproduct?.size)) &&
                 Object.entries((selectvariant?.size || singleproduct?.size)).map(([size,price],i)=>(
-                <button key={i} className={`border rounded px-3 py-1 me-2  ${selectsize===size ? "bg-danger text-white" : "bg-white"}`}
+                <button key={i} className={`border rounded px-3 py-1 ${selectsize===size ? "bg-danger text-white" : "bg-white"}`}
                 onClick={()=>{setSelectSize(size)}}>
                 <div>{size}</div>
                 <div className="small text-muted">₹{price}</div>
