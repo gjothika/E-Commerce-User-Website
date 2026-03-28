@@ -96,28 +96,28 @@ const Singleproduct = () => {
     
 
   return (
-    <div>
-        <div className="row">
+    <div className="overflow-hidden">
+        <div className="row mx-0">
             <div className='col-12 col-md-4'>
-              <div className="card  border rounded ms-5 mt-4" >
-                 <img src={selectvariant?.image||singleproduct?.image} className="card-img-top px-3 " alt="..."style={{height:"400px",objectFit:"cover"}}></img>
+              <div className="card  border rounded ms-md-5 mt-4" >
+                 <img src={selectvariant?.image||singleproduct?.image} className="card-img-top px-3 " alt="..."style={{height:"auto",maxHeight:"400px",objectFit:"cover"}}></img>
               </div>
-              <div className='d-flex ms-5 mt-4 gap-4 '>
-                <button className="px-4 py-2 bg-white rounded fw-bold"style={{borderColor:"pink",color:"violet"}}
+              <div className='d-flex ms-md-5 ms-2 mt-4 gap-2'>
+                <button className="px-md-4 px-4 py-2 bg-white rounded fw-bold"style={{borderColor:"pink",color:"violet"}}
                 onClick={()=>{
-                handleAddToCart(singleproduct)}}><i class="bi bi-cart px-2"></i>Add to Cart</button>
-                <button className="px-5 py-2 border-0 rounded fw-bold"style={{backgroundColor:"violet",color:"white"}}
+                handleAddToCart(singleproduct)}}><i class="bi bi-cart px-md-2 px-1"></i>Add to Cart</button>
+                <button className="px-md-5 px-4 pe-5 py-2 border-0 rounded fw-bold"style={{backgroundColor:"violet",color:"white"}}
                 onClick={()=>{
                   console.log("clicked")
                   handleBuyNow(singleproduct)
                   }}
-                ><i class="bi bi-chevron-double-left px-1"></i>Buy Now</button>
+                ><i class="bi bi-chevron-double-left px-md-2 px-1"></i>Buy Now</button>
               </div>
-            <div className='mt-4 ms-5'style={{borderTop:"2px solid lightgray"}}>
-                <h3 className=' mt-3'>{singleproduct?.variants?.length > 0 ?
+            <div className='mt-4 ms-md-5'style={{borderTop:"2px solid lightgray"}}>
+                <h3 className=' mt-3 ms-2'>{singleproduct?.variants?.length > 0 ?
                                           `${singleproduct.variants.length} Similar Products`
                                          : "1 Similar Product"}</h3>
-                  <div className="d-flex gap-3 mt-2">
+                  <div className="d-flex gap-3 mt-2 ms-2 overflow-auto">
                     {singleproduct?.variants?.length > 0 ?(
                      singleproduct.variants.map((variant) => (
                     <img src={variant.image}key={variant._id} className=' rounded' 
@@ -135,8 +135,8 @@ const Singleproduct = () => {
                  </div>
               </div>
             </div>
-            <div className="card border-0 rounded ms-5 mt-4 col-12 col-md-6">
-            <div className='row'>
+            <div className="card border-0 rounded ms-md-5 mt-4 col-12 col-md-6">
+            <div className='row px-2 px-md-0'>
                 <div className='col-12 col-md-12 mb-3'>
                 <div className="card  border rounded p-3" > 
                     <h5 class="card-title">{singleproduct.description}</h5>

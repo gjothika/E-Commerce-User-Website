@@ -181,7 +181,7 @@ const Buyproduct = () => {
           </div>
                     
               <div className="col-12 col-md-6 ">
-                <div className="card p-4 border-0 position-sticky" style={{top:"100px",width:"500px"}}>
+                <div className="card p-4 border-0 position-sticky" style={{top:"100px",maxWidth:"500px"}}>
                   <h5>Price Details (1 items)</h5>
                   <div className="d-flex justify-content-between pt-2 pe-5">
                     <p className="text-muted fw-bold">Product Price</p>

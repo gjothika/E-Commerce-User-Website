@@ -60,7 +60,7 @@ const handleAddToWishlist = async (item) => {
 };
   return (
     <div>
-        <div className='row g-0 g-md-5'>
+        <div className='row g-0 g-md-5 mx-0'>
             <h2 className="pt-4">Products For You</h2>
        {product.length > 0 ?(
         product.map((item,index)=>(
@@ -71,7 +71,7 @@ const handleAddToWishlist = async (item) => {
           <img src={
             item.variants && item.variants.length>0 ?
             item.variants[0].image:item.image
-          } className="card-img-top rounded-0" alt="..."  style={{ height: "250px" }}></img>
+          } className="card-img-top rounded-0" alt="..."  style={{ height: "230px" }}></img>
           <button type='button' onClick={(e) => {
             e.stopPropagation();
             handleAddToWishlist(item)}}>
