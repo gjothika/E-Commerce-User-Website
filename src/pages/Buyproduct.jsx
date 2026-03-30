@@ -145,7 +145,7 @@ const Buyproduct = () => {
             <div className="row">
               <div className="col">
 
-                <div className="card p-4 border-0">
+                <div className="card border-0">
                   <h5>Buy Product</h5>
             <div className="card mb-3 " style={{maxWidth: "500px"}}>
             <div className="row g-0">
@@ -181,7 +181,7 @@ const Buyproduct = () => {
             
 
              <h5 className="d-flex justify-content-between">Delivery Address
-              <button className="btn btn-sm border-0" onClick={()=>{
+              <button className="btn btn-sm border-0 pe-md-5" onClick={()=>{
                 setShowForm(true)
                 setEditMode(false)
                 setEdtitId(null)
@@ -269,7 +269,7 @@ const Buyproduct = () => {
           </div>
                     
               <div className="col-12 col-md-6 ">
-                <div className="card p-4 border-0 position-sticky" style={{top:"100px",maxWidth:"500px"}}>
+                <div className="card border-0 position-sticky" style={{top:"100px",maxWidth:"500px"}}>
                   <h5>Price Details (1 items)</h5>
                   <div className="d-flex justify-content-between pt-2 pe-5">
                     <p className="text-muted fw-bold">Product Price</p>
@@ -283,9 +283,9 @@ const Buyproduct = () => {
                     <h5 className="text-muted">Order Total</h5>
                     <p>₹{buyvariant?.selling_price || buyproduct?.selling_price}</p>
                 </div>
-                <button className="border-0 rounded p-2 mx-4 my-4"style={{backgroundColor:"lightgreen",color:"green"}}>% Yay! Your total discount is ₹{buyvariant?.actual_price-buyvariant?.selling_price || buyproduct?.actual_price-buyproduct?.selling_price}</button>
-                <p className="px-5">Clicking on 'Continue' will not deduct any money</p>
-                <button className="border-0 rounded p-2 fw-bold mx-4 "style={{backgroundColor:"purple",color:"white"}}
+                <button className="border-0 rounded p-2 mx-md-4 my-4"style={{backgroundColor:"lightgreen",color:"green"}}>% Yay! Your total discount is ₹{buyvariant?.actual_price-buyvariant?.selling_price || buyproduct?.actual_price-buyproduct?.selling_price}</button>
+                <p className="px-md-5 px-3">Clicking on 'Continue' will not deduct any money</p>
+                <button className="border-0 rounded p-2 fw-bold mx-md-4 mb-4"style={{backgroundColor:"purple",color:"white"}}
                 onClick={()=>{
                   if(!selectedAddress){
                     alert("Please add or select Address")
