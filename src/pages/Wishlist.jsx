@@ -39,10 +39,10 @@ const Wishlist = () => {
   return (
     <div>
             <div className='row g-0 g-md-5'>
-                <h2 className="mb-3">My WishList</h2>
+                <h2 className="mb-1">My WishList</h2>
                   {wishlistItems.length > 0 ?(
                   wishlistItems.map((item)=>(
-                      <div className="col-6 col-md-3 d-flex mb-md-5"> 
+                      <div className="col-6 col-md-3 d-flex mb-md-5 "> 
                  <div className="card h-100 w-100 border rounded-0 rounded-md"key={item._id} style={{width:"280px",cursor: "pointer"}} 
                   onClick={()=>navigate(`/Product/${item.productId._id}`)}>
                   <div className="position-relative">

@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from 'react'
-import meeshoLogo from "../src/assets/buynest.png"
+import buynestLogo from "../src/assets/buynest.png"
 import Carousel from './component/Carousel'
 import Category from './component/Category'
 import Carousel1 from './component/Carousel1'
@@ -79,12 +79,11 @@ const App = () => {
 
   return (
     <BrowserRouter>
-
     <div>
       <nav className="navbar navbar-light bg-white sticky-top">
-        <div className="container">
+        <div className="container-fluid d-flex justify-content-between align-items-center px-3">
           <a className="navbar-brand" href="#">
-            <img src={meeshoLogo} alt="" style={{width:200}}></img>
+            <img src={buynestLogo} alt="" style={{width:200}}></img>
           </a>
           <form className="d-flex w-50">
             <div className="position-relative w-100">

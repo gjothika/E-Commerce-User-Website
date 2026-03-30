@@ -6,7 +6,7 @@ const Payment = () => {
       
       const { id } =useParams();
       const location = useLocation();
-       const{product,variant,size,qty,address}=location.state ||{};
+      const{product,variant,size,qty,address}=location.state ||{};
       const [payproduct,setPayproduct] = useState(product || null)
       const [payvariant, setPayVariant] = useState(variant || null);
       const [method,setMethod] = useState("")
@@ -44,7 +44,9 @@ const Payment = () => {
             try{
                 const res = await axios.post(API_ROUTES.POST_ALL_ORDER,orderData)
                 alert("Order Placed Successfully")
-                navigate(`/Ordersuccess/${payproduct._id}`)
+                navigate(`/Ordersuccess/${payproduct._id}`,{
+                    state:{order:res.data.order}
+                })
             }catch(err){
                 console.log(err)
             }

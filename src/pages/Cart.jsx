@@ -141,6 +141,8 @@ const discount = totalActual - totalPrice
 
    </div> 
    </div>
+
+   {cartItems.length > 0 && (
    <div className="col-12 col-md-6 ">
     <div className="card p-4 border-0 position-sticky" style={{top:"100px",maxWidth:"500px"}}>
       <h5>Price Details ({cartItems.length} items)</h5>
@@ -162,8 +164,8 @@ const discount = totalActual - totalPrice
         onClick={()=>navigate("/Address")}
         >Continue</button>
       </div>
-
     </div>
+   )}
   </div>  
 </div>
 </div>

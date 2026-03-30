@@ -117,7 +117,7 @@ const Singleproduct = () => {
                 <h3 className=' mt-3 ms-2'>{singleproduct?.variants?.length > 0 ?
                                           `${singleproduct.variants.length} Similar Products`
                                          : "1 Similar Product"}</h3>
-                  <div className="d-flex gap-3 mt-2 ms-2 overflow-auto">
+                  <div className="d-flex gap-3 mt-2 ms-2 overflow-auto mb-3">
                     {singleproduct?.variants?.length > 0 ?(
                      singleproduct.variants.map((variant) => (
                     <img src={variant.image}key={variant._id} className=' rounded' 
@@ -152,8 +152,8 @@ const Singleproduct = () => {
                 <div className="d-flex align-items-center gap-1 ">
                    <button className="btn btn-primary bg-success text-white fw-bold border-0 rounded-pill px-3 mx-1 my-3">{singleproduct.ratings}
                    <i className="bi bi-star ms-2 "></i></button>
-                   <p className="text-muted pt-3 ">{singleproduct.rating} Ratings ,</p>
-                   <p className="text-muted pt-3 ">{singleproduct.reviews} Reviews</p>
+                   <small className="text-muted pt-3 ">{singleproduct.rating} Ratings ,</small>
+                   <small className="text-muted pt-3 ">{singleproduct.reviews} Reviews</small>
                 </div>
                 <button className="border-0 rounded text-muted p-1"style={{width:"130px"}}>Free Delivery</button>
                </div>
@@ -179,7 +179,7 @@ const Singleproduct = () => {
             </div>
             </div>
              <div className='col-12 col-md-12'>
-                <div className="card  border rounded p-3"> 
+                <div className="card  border rounded p-3 mb-4"> 
                     <h4 className="card-text ">Product Highlights</h4>
                     <div className="row">
                     {Object.entries(selectvariant?.specifications || singleproduct?.specifications).map(([key,value],i)=>(

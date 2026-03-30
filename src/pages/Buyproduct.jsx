@@ -25,6 +25,10 @@ const Buyproduct = () => {
     const [addresslist,setAddressList] = useState([])
     const [editmode,setEditMode] = useState(false)
     const [editid,setEdtitId] = useState(null)
+    const [selectedAddress, setSelectedAddress] = useState(null)
+    const [showOptions, setShowOptions] = useState(false)
+    const [showForm, setShowForm] = useState(false)
+    
 
      useEffect(()=>{
              axios.get(`${API_ROUTES.GET_ALL_PRODUCT}/${id}`)
@@ -38,59 +42,97 @@ const Buyproduct = () => {
                 fetchAddress()
         },[id])
    
-         const handlechange = (e)=>{
+        const handlechange = (e)=>{
           setAddress({
             ...address,
             [e.target.name]:e.target.value
           })
          }
 
-         const handlesaveaddress = async(e)=>{
-          e.preventDefault()
-          const userId = localStorage.getItem("userId")
-           try{
-            if(editmode){
-              const res = await axios.put(`${API_ROUTES.PUT_ALL_ADDRESS}/${editid}`,address
-              )
-              alert("Address Updated")
-              setEditMode(false)
-              setEdtitId(null)
-            
-             }else{
-              const res = await axios.post(API_ROUTES.POST_ALL_ADDRESS,{
-              userId:userId,
-              ...address
-            })
-            console.log(res.data)
-            alert("Saved Address")
-          }
-            setAddress({
-               name:"",
-               contact_no:"",
-               house_no:"",
-               area:"",
-               pincode:"",
-               city:"",
-               state:"",
-               landmark:""
-            })
-             fetchAddress()
+      const handlesaveaddress = async(e)=>{
+        e.preventDefault()
+      const userId = localStorage.getItem("userId")
 
-          }catch(err){
-            console.log(err)
-          }
-         }
+    try{
+    let res;
 
+    if(editmode){
+      res = await axios.put(`${API_ROUTES.PUT_ALL_ADDRESS}/${editid}`, {
+        userId,
+        ...address
+      })
+
+      const updated = res.data.address || res.data
+
+      setAddressList(prev =>
+        prev.map(addr =>
+          addr._id === editid ? updated : addr
+        )
+      )
+
+      setSelectedAddress(updated)
+      alert("Address Updated")
+
+    }else{
+      res = await axios.post(API_ROUTES.POST_ALL_ADDRESS,{
+        userId,
+        ...address
+      })
+
+      alert("Saved Address")
+      await fetchAddress()
+    }
+
+    setShowForm(false)
+    setEditMode(false)
+    setEdtitId(null)
+
+    setAddress({
+      name:"",
+      contact_no:"",
+      house_no:"",
+      area:"",
+      pincode:"",
+      city:"",
+      state:"",
+      landmark:""
+    })
+
+  }catch(err){
+    console.log(err.response?.data)
+    alert("Error saving address")
+  }
+}
          const fetchAddress = async () =>{
           const userId = localStorage.getItem("userId")
           try{
             const res = await axios.get(`${API_ROUTES.GET_ALL_ADDRESS}/${userId}`)
             console.log(res.data)
             setAddressList(res.data)
+             if(res.data.length > 0){
+                setSelectedAddress(res.data[0])
+              }
           }catch(err){
             console.log(err)
           }
          }
+
+       const handleDelete = async(id)=>{
+       try{
+        await axios.delete(`${API_ROUTES.DELETE_ALL_ADDRESS}/${id}`)
+        const updated = addresslist.filter(addr => addr._id !== id)
+        setAddressList(updated)
+
+        if(selectedAddress?._id === id){
+            setSelectedAddress(updated[0] || null)
+          }
+        alert("Address Deleted")
+
+          }catch(err){
+         console.log(err.response?.data || err.message)
+         alert("Error deleting address")
+  }
+}
     
         if(!buyproduct){
             return <h3>Loding....</h3>
@@ -137,8 +179,25 @@ const Buyproduct = () => {
             </div>
             </div>
             
-             <h5>Delivery Address</h5>
-             {addresslist.length === 0 || editmode?(
+
+             <h5 className="d-flex justify-content-between">Delivery Address
+              <button className="btn btn-sm border-0" onClick={()=>{
+                setShowForm(true)
+                setEditMode(false)
+                setEdtitId(null)
+                setAddress({
+                   name:"",
+                   contact_no:"",
+                   house_no:"",
+                   area:"",
+                   pincode:"",
+                   city:"",
+                   state:"",
+                   landmark:""
+                })
+              }}>+ Add New Address</button></h5>
+
+             {addresslist.length === 0 || showForm?(
               <div className="card p-4 mb-3" style={{maxWidth: "500px"}}>
                 <div className="col-md-8">
                   <h6>Contact Details</h6>
@@ -160,22 +219,51 @@ const Buyproduct = () => {
               </div>
             </div>
             ) : (
-            <div className="card p-3 mb-3" style={{maxWidth:"500px"}}>
-               {addresslist.map((addr)=>(
-              <div key={addr._id} className="text-muted">
-                <div className="d-flex justify-content-between">
-              <h5 className="fw-bold">{addr.name}</h5>
-              <h5> <button className="border-0 bg-white"style={{color:"purple"}} onClick={()=>{
-                setAddress(addr)
-                setEditMode(true)
-                setEdtitId(addr._id)
-              }}>change</button></h5></div>
-              <p>{addr.house_no}, {addr.area}</p>
-              <p>{addr.city}, {addr.state} - {addr.pincode}</p>
-              <p>{addr.contact_no}</p>
-            </div>
-            ))}
-          </div>
+            <div className="card mb-3 border-0" style={{maxWidth:"500px"}}>
+           {addresslist.map((addr)=>(
+           <div key={addr._id} className="mb-3 border p-2 rounded">
+           <div className="d-flex justify-content-between">
+         <input 
+        type="radio"
+        name="address"
+        checked={selectedAddress?._id === addr._id}
+        onChange={()=>setSelectedAddress(addr)} />
+
+            <div className="flex-grow-1 px-2">
+           <div className="d-flex justify-content-between align-items-center">
+              <p className="m-0 fw-bold">{addr.name}</p>
+            <button className="btn btn-sm p-0 text-primary border-0 bg-transparent"
+              onClick={()=>setShowOptions(addr._id)}>Change</button></div>
+              <p className="m-0">{addr.house_no}, {addr.area}</p>
+              <p className="m-0">{addr.city}, {addr.state} - {addr.pincode}</p>
+              <p className="m-0">{addr.contact_no}</p><p>{addr.landmark}</p>
+        </div>
+    </div> {showOptions === addr._id && (
+    <div className="">
+      <button className="btn btn-sm text-primary me-3"
+        onClick={()=>{
+          setAddress(addr)
+          setEditMode(true)
+          setShowForm(true)
+          setEdtitId(addr._id)
+          setShowOptions(null)
+        }}>Edit</button>
+
+      <button 
+        className="btn btn-sm text-danger"
+        onClick={()=>{
+          const confirmDelete = window.confirm("Delete this address?")
+          if(confirmDelete){
+            handleDelete(addr._id)
+          }
+          setShowOptions(null)
+        }}>Delete</button>
+
+        </div>
+        )}
+
+        </div>
+         ))}</div>
             )} 
           </div>
           </div>
@@ -198,17 +286,21 @@ const Buyproduct = () => {
                 <button className="border-0 rounded p-2 mx-4 my-4"style={{backgroundColor:"lightgreen",color:"green"}}>% Yay! Your total discount is ₹{buyvariant?.actual_price-buyvariant?.selling_price || buyproduct?.actual_price-buyproduct?.selling_price}</button>
                 <p className="px-5">Clicking on 'Continue' will not deduct any money</p>
                 <button className="border-0 rounded p-2 fw-bold mx-4 "style={{backgroundColor:"purple",color:"white"}}
-                onClick={()=>navigate(`/payment/${buyproduct._id}`,{
+                onClick={()=>{
+                  if(!selectedAddress){
+                    alert("Please add or select Address")
+                    return
+                  }
+                  navigate(`/payment/${buyproduct._id}`,{
                           state:{
                             product:buyproduct,
                             image:buyvariant?.image || buyproduct?.image,
                             variant:buyvariant,
                             size:buysize,
                             qty:buyqty,
-                            address:addresslist[0]
+                            address:selectedAddress
                           }
-                        })}
-                >Continue</button>
+                        })}}>Continue</button>
                 </div>
               </div>
             </div>

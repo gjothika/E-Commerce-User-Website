@@ -1,7 +1,7 @@
 const BASE_URL="https://e-commerce-website-user-backend.onrender.com"
 
 export const API_ROUTES={
-    GET_ALL_WISHLISTCOUNT:`${BASE_URL}/ wishlistCount`,
+    GET_ALL_WISHLISTCOUNT:`${BASE_URL}/wishlistCount`,
     GET_ALL_CARTCOUNT: `${BASE_URL}/cartCount`,
     GET_ALL_WISHLIST: `${BASE_URL}/wishlist`,
     GET_ALL_BRAND:`${BASE_URL}/Brand`,
@@ -10,7 +10,6 @@ export const API_ROUTES={
     POST_ALL_LOGIN:`${BASE_URL}/login`,
     POST_ALL_REGISTER:`${BASE_URL}/register`,
     GET_ALL_CARTCOUNT:`${BASE_URL}/cartCount`,
-    GET_ALL_WISHLISTCOUNT:`${BASE_URL}/wishlistCount`,
     GET_ALL_WISHLIST:`${BASE_URL}/wishlist`,
     GET_ALL_PRODUCT:`${BASE_URL}/Product`,
     POST_ALL_WISHLIST:`${BASE_URL}/wishlist`,
@@ -18,6 +17,7 @@ export const API_ROUTES={
     PUT_ALL_ADDRESS:`${BASE_URL}/address`,
     POST_ALL_ADDRESS:`${BASE_URL}/address`,
     GET_ALL_ADDRESS:`${BASE_URL}/address`,
+    DELETE_ALL_ADDRESS:`${BASE_URL}/address`,
     DELETE_ALL_CARD:`${BASE_URL}/Cart`,
     GET_ALL_MYORDERS:`${BASE_URL}/myorders`,
     GET_ALL_MYSINGLEPRODUCT:`${BASE_URL}/mysingleproduct`,
