@@ -79,13 +79,13 @@ const handleAddToWishlist = async (item) => {
        {product.length > 0 ?(
         product.map((item,index)=>(
             <div key={item._id} className="col-6 col-md-3 d-flex mb-md-2"> 
-       <div className="card h-100 w-100 border rounded-0 rounded-md" style={{maxwidth:"280px",cursor:"pointer"}} 
+       <div className="card h-100 w-100 border rounded-0 rounded-md" style={{maxWidth:"280px",cursor:"pointer"}} 
        onClick={() => navigate(`/product/${item._id}`)}>
         <div className="position-relative">
           <img src={
             item.variants && item.variants.length>0 ?
             item.variants[0].image:item.image
-          } className="card-img-top rounded-0" alt="..."  style={{ height: "230px" }}></img>
+          } className="card-img-top rounded-0" alt="..." height="250"></img>
           <button type='button' onClick={(e) => {
             e.stopPropagation();
             handleAddToWishlist(item)}}>
@@ -94,9 +94,9 @@ const handleAddToWishlist = async (item) => {
          </button>
         </div>  
   <div className="card-body">
-    <h5 className="card-title mb-3" style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
+    <h5 className="card-title mb-2 mb-md-3" style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
       {item.name}</h5>
-    <div className="d-flex gap-1">
+    <div className="d-flex gap-1"style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
         <h3 className="card-text fw-bold">₹
            {item.selling_price||item.variants[0].selling_price}</h3>
           <h6 className="card-text text-muted text-decoration-line-through">₹
@@ -105,11 +105,13 @@ const handleAddToWishlist = async (item) => {
           {item.discount||item.variants[0].discount}% off</h6>
     </div>
     <span className="text-muted bg-light rounded px-2 my-2">Free Delivery</span>
-    <div className="d-flex align-items-center gap-1 ">
-    <span className="bg-success text-white fw-bold rounded-pill px-1 py-1 my-3">{item.ratings}
-        <i className="bi bi-star ms-2 "></i>
-    </span>
-    <small className="text-muted pt-3 ">{item.reviews} Reviews</small>
+    <div className="d-flex align-items-center gap-1 flex-nowrap mt-2">
+    <span className="bg-success text-white fw-bold rounded-pill d-flex align-items-center justify-content-center"
+  style={{fontSize: "12px",padding: "3px 6px",lineHeight: "2" }}>
+  {item.ratings}
+  <i className="bi bi-star-fill ms-1" style={{fontSize:"10px"}}></i>
+</span>
+    <small className="text-muted pt-3"style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>{item.reviews} Reviews</small>
     </div>
   </div>
 </div>

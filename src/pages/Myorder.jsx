@@ -7,6 +7,7 @@ const MyOrders = () => {
 
     const { userId } =useParams();
     const [orders,setOrders] = useState([])
+    const [loading,setLoading] = useState(true)
     const userid = localStorage.getItem("userId")
     const navigate = useNavigate()
 
@@ -15,7 +16,17 @@ const MyOrders = () => {
         .then(res=>{
         setOrders(res.data)
         })
+        .catch((err)=>{console.log(err)})
+        .finally(()=>{setLoading(false)})
     },[])
+
+    if (loading) {
+        return (
+       <div className="d-flex justify-content-center m-5">
+         <div className="spinner-border"></div>
+       </div>
+     );
+   }
 
 return(
 <div>

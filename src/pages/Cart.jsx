@@ -9,6 +9,7 @@ import { API_ROUTES } from '../utils/Apiroutes'
 const Cart = () => {
 
  const [cartItems,setCartItems]=useState([])
+ const [loading,setLoading]=useState(true)
  const [userId, setUserId] = useState(localStorage.getItem("userId"))
  const dispatch = useDispatch();
  const wishlistCount = useSelector(state=>state.wishlist.count)
@@ -34,6 +35,9 @@ useEffect(() => {
         })          
         .catch((err)=>{
           console.log(err)
+        })
+        .finally(()=>{
+          setLoading(false)
         })
       },[userId]);
 
@@ -85,6 +89,15 @@ const totalActual = cartItems.reduce((total, item) => {
 }, 0)
 
 const discount = totalActual - totalPrice
+
+
+ if (loading) {
+     return (
+    <div className="d-flex justify-content-center m-5">
+      <div className="spinner-border"></div>
+    </div>
+  );
+}
 
   return (
      <div>
