@@ -5,6 +5,7 @@ import { API_ROUTES } from '../utils/Apiroutes'
 const Carousel2 = () => {
 
 const [card,setCard]=useState([])
+const [loading,setLoading]=useState(true)
 
 useEffect(()=>{
     axios.get(API_ROUTES.GET_ALL_CARD)
@@ -14,7 +15,16 @@ useEffect(()=>{
      .catch((err)=>{
         console.log(err)
      })
+     .finally(()=>{setLoading(false)})
 },[])
+
+if (loading) {
+     return (
+    <div className="d-flex justify-content-center m-5">
+      <div className="spinner-border"></div>
+    </div>
+  );
+}
 
   return (
        <div>
