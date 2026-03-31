@@ -85,7 +85,7 @@ const handleAddToWishlist = async (item) => {
           <img src={
             item.variants && item.variants.length>0 ?
             item.variants[0].image:item.image
-          } className="card-img-top rounded-0" alt="product" height="250"></img>
+          } className="card-img-top rounded-0" alt="product" height="240"></img>
           <button type='button'className="btn p-0 border-0 bg-transparent" onClick={(e) => {
             e.stopPropagation();
             handleAddToWishlist(item)}}>

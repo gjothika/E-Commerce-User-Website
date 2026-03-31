@@ -1,7 +1,6 @@
 import React from 'react'
 import carosual1 from "../assets/carosual1.png"
 import carosual2 from "../assets/carosual2.png"
-import { API_ROUTES } from '../utils/Apiroutes'
 const Carousel = () => {
   return (
     <div>
@@ -10,11 +9,11 @@ const Carousel = () => {
     <div className="carousel-item active position-relative">
       <img src={carosual1} className="d-block w-100" alt="..."></img>
       <div className="position-absolute top-50 end-0 carousel-text">
-      <h1 className="me-5 mb-4 text-white">
+      <h1 className="me-md-5 me-4 mb-md-4 text-white">
         Smart Shopping<br></br>
         Trusted By Millions
       </h1>
-      <button className="bg-white w-50 rounded border-0 mb-5 shop-btn"
+      <button className="bg-white w-50 rounded border-0 mb-md-5 shop-btn"
        >Shop Now</button>
       </div>
     </div>
@@ -34,22 +33,22 @@ const Carousel = () => {
 
 <div className="container mt-3">
 
-  <div className="border rounded p-3 bg-light">
+  <div className="border rounded p-md-3 bg-light">
 
     <div className="d-flex justify-content-around text-center">
 
       <div>
-        <i className="bi bi-arrow-repeat fs-5 "></i>
+        <i className="bi bi-arrow-repeat fs-md-5"></i>
         <span className="ms-2">7 Days Easy Return</span>
       </div>
 
       <div>
-        <i className="bi bi-cash fs-5 "></i>
+        <i className="bi bi-cash fs-md-5 "></i>
         <span className="ms-2">Cash on Delivery</span>
       </div>
 
       <div>
-        <i className="bi bi-tag fs-5 "></i>
+        <i className="bi bi-tag fs-md-5 "></i>
         <span className="ms-2">Lowest Prices</span>
       </div>
 
