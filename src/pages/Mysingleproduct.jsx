@@ -116,7 +116,7 @@ const Mysingleproduct = () => {
         </div>
         </div>
 
-        <div className="card p-2 mt-4"style={{maxWidth:"600px"}}>
+        <div className="card p-2 my-4"style={{maxWidth:"600px"}}>
             <h5>Delivery Address</h5>
             <h6>{product?.address?.name}</h6>
             <p>{`${product?.address?.house_no} , ${product?.address?.area} , ${product?.address?.city} , ${product?.address?.state} , ${product?.address?.pincode}`}</p>

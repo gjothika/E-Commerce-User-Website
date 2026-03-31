@@ -33,7 +33,7 @@ return(
     {orders.length > 0 ? (
     <div className="container">   
     {orders.map((item)=>(
-        <div className="card p-2  mt-4" key={item._id} 
+        <div className="card p-2  my-4" key={item._id} 
         onClick={() => navigate(`/Mysingleproduct/${userId}/${item.productId}`,{
             state:{
                 image:orders.image
