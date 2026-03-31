@@ -73,8 +73,8 @@ const handleAddToWishlist = async (item) => {
 }
 
   return (
-    <div className="m-md-0 m-2">
-        <div className='row g-md-5 mx-0'>
+    <div className="m-md-3 m-2">
+        <div className='row g-0 g-md-5'>
             <h2 className="pt-4">Products For You</h2>
        {product.length > 0 ?(
         product.map((item,index)=>(
@@ -96,7 +96,7 @@ const handleAddToWishlist = async (item) => {
   <div className="card-body">
     <h5 className="card-title mb-2 mb-md-3" style={{whiteSpace:"nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
       {item.name}</h5>
-    <div className="d-flex gap-1"style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
+    <div className="d-flex gap-1"style={{whiteSpace: "nowrap",textOverflow: "ellipsis"}}>
         <h3 className="card-text fw-bold">₹
            {item.selling_price||item.variants[0].selling_price}</h3>
           <h6 className="card-text text-muted text-decoration-line-through">₹

@@ -57,14 +57,14 @@ const Wishlist = () => {
                   onClick={()=>navigate(`/Product/${item.productId._id}`)}>
                   <div className="position-relative">
                     <img src={item.variant?.image || item.productId?.image} className="card-img-top rounded-0" alt="..." height="250"></img>
-                       <button>
+                       <button type='button'className="btn p-0 border-0 bg-transparent">
                       <i onClick={(e)=>{e.stopPropagation();
                         handleRemove(item)}} className="bi bi-heart-fill position-absolute top-0 end-0 m-2"style={{fontSize:"20px",cursor:"pointer",color:"red"}}></i>
                          </button>
                   </div>          
             <div className="card-body">
               <h5 className="card-title mb-3" style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>{item.productId.name}</h5>
-              <div className="d-flex gap-1"style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
+              <div className="d-flex gap-1"style={{whiteSpace: "nowrap",textOverflow: "ellipsis"}}>
                   <h3 className="card-text fw-bold ">₹
                     {item.variant?.selling_price || item.productId?.selling_price}
                     </h3>
