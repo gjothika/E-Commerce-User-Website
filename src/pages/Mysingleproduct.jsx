@@ -26,6 +26,17 @@ const Mysingleproduct = () => {
 
   },[userId,productId])
 
+  const handlecancel = async () => {
+  try {
+    await axios.put(`${API_ROUTES.PUT_ALL_CANCELORDER}/${product._id}`);
+    alert("Order Cancelled");
+    setProduct({ ...product, status: "cancelled" });
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
   if(!product){
     return <div className="d-flex justify-content-center m-5">
           <div className="spinner-border"></div>
@@ -50,7 +61,7 @@ const Mysingleproduct = () => {
             </div>
         </div>
 
-        <div className='card p-2 mb-4'style={{maxWidth:"600px"}}>
+        <div className='card p-2 'style={{maxWidth:"600px"}}>
             <div className="d-flex justify-content-between align-items-center mt-4">
                 {steps.map((step,index)=>(
                     <React.Fragment key={index}>
@@ -87,8 +98,25 @@ const Mysingleproduct = () => {
                ))}
             </div>
         </div>
+   
+        <div className='card border-0'style={{maxWidth:"600px"}}>
+        <div className="d-flex justify-content-end ">
+             {product?.status==="Ordered" &&(
+            <button className="btn m-3" style={{border:"1px solid red",color:"red"}}
+            onClick={handlecancel}>Cancel Order</button>
+        )}
+        </div>
+        </div>
+        
+         <div className='card border-0'style={{maxWidth:"600px"}}>
+        <div className="d-flex justify-content-end ">
+             {product?.status==="cancelled" &&(
+            <button className="btn m-3" style={{border:"1px solid red",color:"red"}}>Order Cancelled</button>
+        )}
+        </div>
+        </div>
 
-        <div className="card p-2"style={{maxWidth:"600px"}}>
+        <div className="card p-2 mt-4"style={{maxWidth:"600px"}}>
             <h5>Delivery Address</h5>
             <h6>{product?.address?.name}</h6>
             <p>{`${product?.address?.house_no} , ${product?.address?.area} , ${product?.address?.city} , ${product?.address?.state} , ${product?.address?.pincode}`}</p>

@@ -526,6 +526,21 @@ app.delete("/address/:id", async (req, res) => {
   }
 });
 
+
+app.put("/cancelorder/:id", async (req, res) => {
+  try {
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status: "cancelled" },
+      { new: true }
+    );
+
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get("/cart",async(req,res)=>{
   const carts = await Cart.find({});
   res.json(carts);

@@ -1,5 +1,5 @@
-const BASE_URL="https://e-commerce-website-user-backend.onrender.com"
-// const BASE_URL="http://localhost:8000"
+// const BASE_URL="https://e-commerce-website-user-backend.onrender.com"
+const BASE_URL="http://localhost:8000"
 export const API_ROUTES={
     GET_ALL_WISHLISTCOUNT:`${BASE_URL}/wishlistCount`,
     GET_ALL_CARTCOUNT: `${BASE_URL}/cartCount`,
@@ -24,5 +24,6 @@ export const API_ROUTES={
     POST_ALL_ORDER:`${BASE_URL}/order`,
     POST_ALL_CART:`${BASE_URL}/cart`,
     GET_ALL_CART: `${BASE_URL}/Cart`,
-    DELETE_ALL_WISHLISTS:`${BASE_URL}/Wishlist`
+    DELETE_ALL_WISHLISTS:`${BASE_URL}/Wishlist`,
+    PUT_ALL_CANCELORDER:`${BASE_URL}/cancelorder`
 }

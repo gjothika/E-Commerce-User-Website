@@ -74,7 +74,7 @@ const handleAddToWishlist = async (item) => {
 
   return (
     <div className="m-md-0 m-2">
-        <div className='row g-0 g-md-5 mx-0'>
+        <div className='row g-md-5 mx-0'>
             <h2 className="pt-4">Products For You</h2>
        {product.length > 0 ?(
         product.map((item,index)=>(
@@ -85,8 +85,8 @@ const handleAddToWishlist = async (item) => {
           <img src={
             item.variants && item.variants.length>0 ?
             item.variants[0].image:item.image
-          } className="card-img-top rounded-0" alt="..." height="250"></img>
-          <button type='button' onClick={(e) => {
+          } className="card-img-top rounded-0" alt="product" height="250"></img>
+          <button type='button'className="btn p-0 border-0 bg-transparent" onClick={(e) => {
             e.stopPropagation();
             handleAddToWishlist(item)}}>
          <i className={`bi ${ wishlistItems.includes(item._id)? "bi-heart-fill text-danger" : "bi-heart"} position-absolute top-0 end-0 m-2`}
@@ -94,7 +94,7 @@ const handleAddToWishlist = async (item) => {
          </button>
         </div>  
   <div className="card-body">
-    <h5 className="card-title mb-2 mb-md-3" style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
+    <h5 className="card-title mb-2 mb-md-3" style={{whiteSpace:"nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
       {item.name}</h5>
     <div className="d-flex gap-1"style={{whiteSpace: "nowrap",overflow: "hidden",textOverflow: "ellipsis"}}>
         <h3 className="card-text fw-bold">₹
