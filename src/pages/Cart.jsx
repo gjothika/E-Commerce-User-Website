@@ -159,7 +159,7 @@ const discount = totalActual - totalPrice
         <p>₹{totalPrice}</p>
       </div>
       <button className="border-0 rounded p-2 mx-md-4 my-4"style={{backgroundColor:"lightgreen",color:"green"}}>% Yay! Your total discount is ₹{discount}</button>
-        <p className="px-md-5"style={{fontSize:"15px"}}>Clicking on 'Continue' will not deduct any money</p>
+        <p className="px-md-5 px-3"style={{fontSize:"15px"}}>Clicking on 'Continue' will not deduct any money</p>
         <button className="border-0 rounded p-2 fw-bold mx-md-4 mb-4"style={{backgroundColor:"purple",color:"white"}}
         onClick={()=>navigate("/Address")}
         >Continue</button>

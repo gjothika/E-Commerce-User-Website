@@ -27,7 +27,9 @@ const Mysingleproduct = () => {
   },[userId,productId])
 
   if(!product){
-    return <h3>Loading...</h3>
+    return <div className="d-flex justify-content-center m-5">
+          <div className="spinner-border"></div>
+        </div>
   }
 
   return (

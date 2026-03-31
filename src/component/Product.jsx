@@ -12,6 +12,8 @@ const Product = () => {
 
     const [product,setProduct]=useState([]);
 
+    const [loading,setLoading]=useState(true)
+
     const wishlistItems = useSelector((state) => state.wishlist.wishlistItems);
 
     const navigate = useNavigate();
@@ -23,6 +25,9 @@ const Product = () => {
         })
         .catch((err)=>{
             console.log(err)
+        })
+        .finally(()=>{
+          setLoading(false)
         })
     },[]);
   
@@ -58,13 +63,22 @@ const handleAddToWishlist = async (item) => {
     console.log(err);
   }
 };
+   
+     if (loading) {
+     return (
+    <div className="d-flex justify-content-center m-5">
+      <div className="spinner-border"></div>
+    </div>
+  );
+}
+
   return (
-    <div>
+    <div className="m-md-0 m-2">
         <div className='row g-0 g-md-5 mx-0'>
             <h2 className="pt-4">Products For You</h2>
        {product.length > 0 ?(
         product.map((item,index)=>(
-            <div key={item._id} className="col-6 col-md-3 d-flex mb-md-5"> 
+            <div key={item._id} className="col-6 col-md-3 d-flex mb-md-2"> 
        <div className="card h-100 w-100 border rounded-0 rounded-md" style={{maxwidth:"280px",cursor:"pointer"}} 
        onClick={() => navigate(`/product/${item._id}`)}>
         <div className="position-relative">

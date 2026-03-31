@@ -135,7 +135,9 @@ const Buyproduct = () => {
 }
     
         if(!buyproduct){
-            return <h3>Loding....</h3>
+            return <div className="d-flex justify-content-center  m-5">
+      <div className="spinner-border"></div>
+    </div>
         }
 
   return (
@@ -284,7 +286,7 @@ const Buyproduct = () => {
                     <p>₹{buyvariant?.selling_price || buyproduct?.selling_price}</p>
                 </div>
                 <button className="border-0 rounded p-2 mx-md-4 my-4"style={{backgroundColor:"lightgreen",color:"green"}}>% Yay! Your total discount is ₹{buyvariant?.actual_price-buyvariant?.selling_price || buyproduct?.actual_price-buyproduct?.selling_price}</button>
-                <p className="px-md-5">Clicking on 'Continue' will not deduct any money</p>
+                <p className="px-md-5 px-3">Clicking on 'Continue' will not deduct any money</p>
                 <button className="border-0 rounded p-2 fw-bold mx-md-4 mb-4"style={{backgroundColor:"purple",color:"white"}}
                 onClick={()=>{
                   if(!selectedAddress){

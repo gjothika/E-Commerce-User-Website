@@ -4,6 +4,7 @@ import { API_ROUTES } from '../utils/Apiroutes'
 
 const Category = () => {
       const [category,setCategory]=useState([])
+      const [loading,setLoading]=useState(true)
 
       useEffect(()=>{
         axios.get(API_ROUTES.GET_ALL_CATEGORY)
@@ -14,7 +15,19 @@ const Category = () => {
         .catch((err)=>{
           console.log(err)
         })
+        .finally(()=>{
+          setLoading(false)
+        })
       },[]);
+
+       if (loading) {
+     return (
+    <div className="d-flex justify-content-center m-5">
+      <div className="spinner-border"></div>
+    </div>
+  );
+}
+
   return (
     <div>
  <div className="row mx-5 my-5">

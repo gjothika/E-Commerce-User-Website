@@ -34,7 +34,9 @@ const Singleproduct = () => {
     },[id])
     
     if(!singleproduct){
-        return <h3>Loding....</h3>
+        return <div className="d-flex justify-content-center m-5">
+      <div className="spinner-border"></div>
+    </div>
     }
 
     const handleAddToCart = async (item) => {

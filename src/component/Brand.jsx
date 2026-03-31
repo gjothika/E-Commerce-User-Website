@@ -5,6 +5,7 @@ import { API_ROUTES } from '../utils/Apiroutes'
 const Brand = () => {
 
     const [brand,setBrand]=useState([])
+    const [loading,setLoading]=useState(true)
     
     useEffect(()=>{
         axios.get(API_ROUTES.GET_ALL_BRAND)
@@ -14,7 +15,18 @@ const Brand = () => {
         .catch((err)=>{
             console.log(err)
         })
+        .finally(()=>{
+            setLoading(false)
+        })
        }, [])
+
+    if (loading) {
+     return (
+    <div className="d-flex justify-content-center m-5">
+      <div className="spinner-border"></div>
+    </div>
+  );
+}
 
   return (
     <div>
