@@ -74,7 +74,14 @@ const Singleproduct = () => {
         console.log(err)
       }
     }
-
+   
+     const autoSelectSize = (size) => {
+  if (Array.isArray(size) && size.length === 1 && size[0] === "Free Size") {
+    setSelectSize("Free Size")
+  } else {
+    setSelectSize(null)
+  }
+}
 
      const handleBuyNow = async () => {
               const userId = localStorage.getItem("userId")
@@ -124,7 +131,7 @@ const Singleproduct = () => {
                      singleproduct.variants.map((variant) => (
                     <img src={variant.image}key={variant._id} className=' rounded' 
                      onClick={() => {setSelectVariant(variant)
-                        setSelectSize(null)
+                      autoSelectSize(variant.size)
                       }}
                    style={{height: "75px", width: "75px",cursor: "pointer",
                         border: selectvariant?._id === variant._id ? "3px solid violet " : "1px "

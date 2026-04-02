@@ -13,7 +13,7 @@ const Carousel = () => {
         Smart Shopping<br></br>
         Trusted By Millions
       </h1>
-      <button className="bg-white w-50 rounded border-0 mb-md-5 shop-btn"
+      <button className="bg-white w-50 rounded border-0 mb-md-5 mb-5 shop-btn"
        >Shop Now</button>
       </div>
     </div>

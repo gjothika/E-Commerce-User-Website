@@ -28,9 +28,11 @@ import { API_ROUTES } from './utils/Apiroutes'
 
 const App = () => {
 
-  const [showlogin,setShowLogin]=useState(false)
+  const [showLogin,setShowLogin]=useState(false)
 
   const [user, setUser] = useState(null);
+
+  const [showProfile, setShowProfile] = useState(false);
 
   const dispatch = useDispatch()
   const userId = localStorage.getItem("userId")
@@ -62,6 +64,16 @@ const App = () => {
     
   }
 }, []);
+
+useEffect(() => {
+  const handleOutsideClick = (e) => {
+    if (!e.target.closest(".profile-wrapper")) {
+      setShowProfile(false)
+    }
+  }
+  document.addEventListener("mousedown", handleOutsideClick)
+  return () => document.removeEventListener("mousedown", handleOutsideClick)
+}, [])
   
 
   const cartCount= useSelector(state =>state.cart.count)
@@ -80,53 +92,61 @@ const App = () => {
   return (
     <BrowserRouter>
     <div>
-      <nav className="navbar navbar-light bg-white sticky-top">
-        <div className="container-fluid d-flex justify-content-between align-items-center px-3">
-          <a className="navbar-brand" href="#">
-            <img src={buynestLogo} alt="" style={{width:200}}></img>
-          </a>
-          <form className="d-flex w-50">
-            <div className="position-relative w-100">
-              <i className="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-            <input className="form-control me-2 px-5" type="search" placeholder="Try Saree,kurti or Search by Product Code" aria-label="Search"></input>
-            </div>
-          </form>
-          <div className="position-relative">
-            <Link to="/wishlist" style={{textDecoration:"none", color:"black"}}>
-               <i className="bi bi-heart" style={{cursor:"pointer", fontSize:"20px"}}></i>
-               {wishlistCount > 0 && (
-      <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger "style={{backgroundColor:"red"}}>
-        {wishlistCount}
-      </span>
-    )}
-           </Link>
+     <nav className="navbar custom-navbar sticky-top">
+  <div className="container-fluid d-flex justify-content-between align-items-center">
+    <Link to="/" className="navbar-brand logo">
+      <img src={buynestLogo}  alt="logo" />
+    </Link>
+    <div className="right-section d-flex align-items-center">
+      <Link to="/wishlist" className="icon-box">
+        <i className="bi bi-heart"></i>
+        {wishlistCount > 0 && (
+          <span className="badge">{wishlistCount}</span>
+        )}
+      </Link>
+      <Link to="/Cart" className="icon-box">
+        <i className="bi bi-cart3"></i>
+        {cartCount > 0 && (
+          <span className="badge">{cartCount}</span>
+        )}
+      </Link>
+      <div className="profile-wrapper">
+        <div className="profile-box" onClick={() => setShowProfile(!showProfile)} >
+          <i className="bi bi-person"></i>
+        </div>
+        {showProfile && (
+          <div className="profile-dropdown shadow">
+            {user ? (
+              <>
+                <p className="fw-bold mb-1">Hello {user.FirstName} {user.LastName}</p>
+                <hr />
+                <Link to={`/Myorder/${userId}`} className="dropdown-item">
+                <i className="bi bi-bag me-2"></i>My Orders</Link>
+                <span className="dropdown-item" onClick={handleLogout}>
+                  <i className="bi bi-box-arrow-left me-2"></i>Logout
+                </span>
+              </>
+            ) : (
+              <>
+                <p className="fw-bold">Hello User</p>
+                <button className="btn btn-primary w-100" onClick={() => {
+                    setShowLogin(true);
+                    setShowProfile(false);}}>
+                  Sign Up / Login </button>
+              </>
+            )}
           </div>
-          <div className="position-relative">
-            <Link to="/Cart" style={{textDecoration:"none", color:"black"}}>
-            <i className="bi bi-cart3" style={{cursor:"pointer", fontSize:"20px"}}></i>
-               {cartCount > 0 && (
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill  bg-danger">{cartCount}</span>
-              )}</Link>
-              </div>
-          <div>
-           {user ? (
-            <span>{user.FirstName} {user.LastName} <i className="bi bi-box-arrow-right px-2" style={{cursor:"pointer"}} 
-            onClick={handleLogout}></i>
-            <i className="bi bi-bag px-2" style={{cursor:"pointer"}}><Link
-             to={`/Myorder/${userId}`}
-      style={{ textDecoration: "none", color: "black" }}
-      className="px-2"
-             >My Order</Link></i>
-            </span>
-             ) : (
-             <a onClick={() => setShowLogin(true)} className="nav-link active " aria-current="page" href="#"><i className="bi bi-person px-1"style={{cursor:"pointer", fontSize:"20px"}}></i>Login</a>
-             )}
-          </div>
-        </div>      
-      
-        <Login show={showlogin} onClose={() => setShowLogin(false)} setUser={setUser} />
+        )}
+      </div>
 
-      </nav>
+    </div>
+  </div>
+</nav>
+
+<Login 
+  show={showLogin} 
+  onClose={() => setShowLogin(false)} 
+  setUser={setUser} />
        
  <Routes>
 
